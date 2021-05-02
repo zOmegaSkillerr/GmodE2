@@ -1,0 +1,33 @@
+#how to use it
+#Connect Entity with a prop GPS with a GPS and 
+#ButtonOn with a button and optionally is the output 
+#Name you can connect it with a text screen.
+@name TP
+@inputs Entity:entity GPS:vector ButtonOn
+@outputs Name:string
+@persist Pos:vector Player:entity TR
+timer("Timer",1)
+if(ButtonOn == 1) {
+if(clk("Timer")) {
+    Entity:setPos(Pos)
+    }
+}
+else{
+ Entity:setPos(GPS) 
+}
+if(clk("Timer")){
+    Name = Player:name()
+    Pos = Player:pos()
+    if(TR == 1){
+     hint("Es ist nun der Spieler "+Name+" Ausgewaelt",10) 
+    TR = 0  
+    }
+    }
+runOnChat(1)
+if(chatClk(owner())){
+T = owner():lastSaid():explode(" ") 
+if(T[1,string] == ".target"){ 
+Player = findPlayerByName(T[2,string])
+TR = 1
+  }
+    }
